@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import math
 from pathlib import Path
+import plotly.graph_objects as go
 
 # Set the title and favicon that appear in the Browser's tab bar.
 st.set_page_config(
@@ -149,3 +150,20 @@ for i, country in enumerate(selected_countries):
             delta=growth,
             delta_color=delta_color
         )
+
+# Create figure
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=dates, y=prices))
+
+# Enable box selection
+fig.update_layout(dragmode='select')
+
+# Display in Streamlit
+selected_points = st.plotly_chart(fig, return_events=["selection"])
+
+# Check if selection was made
+if selected_points:
+    # Get selection coordinates
+    x_range = [selected_points["range"]["x"][0], selected_points["range"]["x"][1]]
+    y_range = [selected_points["range"]["y"][0], selected_points["range"]["y"][1]]
+    # Trigger your workflow here
