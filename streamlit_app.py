@@ -153,7 +153,8 @@ for i, country in enumerate(selected_countries):
 
 # Create figure
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=dates, y=prices))
+ts_df = filtered_gdp_df[filtered_gdp_df['Country Code']=='FRA']
+fig.add_trace(go.Scatter(x=ts_df.Year, y=ts_df.GDP))
 
 # Enable box selection
 fig.update_layout(dragmode='select')
@@ -162,8 +163,8 @@ fig.update_layout(dragmode='select')
 selected_points = st.plotly_chart(fig, return_events=["selection"])
 
 # Check if selection was made
-if selected_points:
+#if selected_points:
     # Get selection coordinates
-    x_range = [selected_points["range"]["x"][0], selected_points["range"]["x"][1]]
-    y_range = [selected_points["range"]["y"][0], selected_points["range"]["y"][1]]
+#    x_range = [selected_points["range"]["x"][0], selected_points["range"]["x"][1]]
+#    y_range = [selected_points["range"]["y"][0], selected_points["range"]["y"][1]]
     # Trigger your workflow here
